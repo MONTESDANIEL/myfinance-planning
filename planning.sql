@@ -8,11 +8,12 @@ USE planning_db;
 CREATE TABLE IF NOT EXISTS events (
     id SERIAL PRIMARY KEY,                    -- Identificador único autoincremental
     user_id BIGINT NOT NULL,   
+    amount BIGINT NOT NULL,
     title VARCHAR(255) NOT NULL,               -- Título del evento
-    start_date DATE NOT NULL,                  -- Fecha de inicio
-    end_date DATE NOT NULL,                    -- Fecha de fin
+    date DATE NOT NULL,                    -- Fecha de fin
     type ENUM('income', 'savings', 'expense') NOT NULL -- Tipo de evento (ingreso, ahorro, egreso)
 );
+
 
 -- Crear la tabla 'Goals' para gestionar las metas
 CREATE TABLE IF NOT EXISTS Goals (

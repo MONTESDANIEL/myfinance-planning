@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 @RestController
 @RequestMapping("/api/events")
@@ -32,21 +33,30 @@ public class EventsController {
         return response;
     }
 
+    @GetMapping("/viewUserEvents")
+    public ResponseEntity<?> viewUserEvents(@RequestHeader("Authorization") String authorizationToken) {
+        ResponseEntity<?> response = eventsService.viewUserEvents(authorizationToken);
+        return response;
+    }
+
     @PostMapping("/newEvent")
-    public ResponseEntity<?> newEvent(@Valid @RequestBody AppEvents newEvent) {
-        ResponseEntity<?> response = eventsService.newEvent(newEvent);
+    public ResponseEntity<?> newEvent(@Valid @RequestBody AppEvents newEvent,
+            @RequestHeader("Authorization") String authorizationToken) {
+        ResponseEntity<?> response = eventsService.newEvent(newEvent, authorizationToken);
         return response;
     }
 
     @PutMapping("/updateEvent")
-    public ResponseEntity<?> updateEvent(@Valid @RequestBody AppEvents updateEvent) {
-        ResponseEntity<?> response = eventsService.updateEvent(updateEvent);
+    public ResponseEntity<?> updateEvent(@Valid @RequestBody AppEvents updateEvent,
+            @RequestHeader("Authorization") String authorizationToken) {
+        ResponseEntity<?> response = eventsService.updateEvent(updateEvent, authorizationToken);
         return response;
     }
 
     @DeleteMapping("/deleteEvent/{id}")
-    public ResponseEntity<?> deleteEvent(@PathVariable Long id) {
-        ResponseEntity<?> response = eventsService.deleteEvent(id);
+    public ResponseEntity<?> deleteEvent(@PathVariable Long id,
+            @RequestHeader("Authorization") String authorizationToken) {
+        ResponseEntity<?> response = eventsService.deleteEvent(id, authorizationToken);
         return response;
     }
 }
