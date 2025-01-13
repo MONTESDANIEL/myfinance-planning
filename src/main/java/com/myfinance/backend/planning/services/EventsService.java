@@ -72,6 +72,10 @@ public class EventsService {
                 return createApiResponse(HttpStatus.BAD_REQUEST, "No se pudo cargar el usuario.", null);
             }
 
+            if (newEvent.getId() != null && eventsRepository.existsById(newEvent.getId())) {
+                return createApiResponse(HttpStatus.CONFLICT, "El evento ya existe.", null);
+            }
+
             newEvent.setUserId(userId);
 
             eventsRepository.save(newEvent);
@@ -103,6 +107,7 @@ public class EventsService {
             AppEvents event = eventsRepository.findById(updateEvent.getId()).get();
 
             event.setTitle(updateEvent.getTitle());
+            event.setAmount(updateEvent.getAmount());
             event.setDate(updateEvent.getDate());
             event.setType(updateEvent.getType());
 
