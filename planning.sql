@@ -21,7 +21,5 @@ CREATE TABLE IF NOT EXISTS Goals (
     user_id BIGINT NOT NULL,   
     title VARCHAR(255) NOT NULL,               -- Título de la meta
     target_amount DECIMAL NOT NULL,      -- Monto objetivo
-    current_spending DECIMAL NOT NULL,   -- Gasto actual
-    remaining_budget DECIMAL NOT NULL,   -- Presupuesto restante
     type ENUM('incremental', 'reductive') NOT NULL  -- Tipo de meta (incremental o reductivo)
 );

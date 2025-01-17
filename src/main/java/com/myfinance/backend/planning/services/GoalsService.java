@@ -60,10 +60,6 @@ public class GoalsService {
     public ResponseEntity<?> newGoal(AppGoals newGoal, String token) {
         try {
 
-            if ((newGoal.getCurrentSpending() + newGoal.getRemainingBudget()) < newGoal.getTargetAmount()) {
-                return createApiResponse(HttpStatus.BAD_REQUEST, "Las cantidades no son correctas", null);
-            }
-
             Long userId = getUserId(token);
 
             // Verificación temprana de la existencia del usuario
@@ -88,10 +84,6 @@ public class GoalsService {
                 return createApiResponse(HttpStatus.CONFLICT, "La meta no fue encontrada.", null);
             }
 
-            if ((updateGoal.getCurrentSpending() + updateGoal.getRemainingBudget()) < updateGoal.getTargetAmount()) {
-                return createApiResponse(HttpStatus.BAD_REQUEST, "Las cantidades no son correctas", null);
-            }
-
             Long userId = getUserId(token);
 
             // Verificación temprana de la existencia del usuario
@@ -99,7 +91,7 @@ public class GoalsService {
                 return createApiResponse(HttpStatus.BAD_REQUEST, "No se pudo cargar el usuario.", null);
             }
 
-            if (updateGoal.getUserId() != userId) {
+            if (!updateGoal.getUserId().toString().equals(userId.toString())) {
                 return createApiResponse(HttpStatus.UNAUTHORIZED, "No se pudo actualizar la meta.", null);
             }
 
@@ -107,8 +99,6 @@ public class GoalsService {
 
             goal.setTitle(updateGoal.getTitle());
             goal.setTargetAmount(updateGoal.getTargetAmount());
-            goal.setCurrentSpending(updateGoal.getCurrentSpending());
-            goal.setRemainingBudget(updateGoal.getRemainingBudget());
             goal.setType(updateGoal.getType());
 
             goalsRepository.save(goal);
