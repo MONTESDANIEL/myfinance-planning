@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <title>Reporte de Movimientos</title>
+    <style>
+      /* Estilos CSS */
+      body {
+        font-family: "Roboto", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f9f9f9;
+        display: flex;
+        flex-direction: column;
+        height: 100vh; /* Asegura que la página ocupe toda la altura de la ventana */
+      }
+
+      .container {
+        flex: 1; /* Esto hace que el contenido de la página ocupe el espacio disponible */
+        padding: 20px;
+        background-color: #f9f9f9;
+      }
+
+      h1 {
+        text-align: center;
+        color: #4caf50;
+        font-size: 35px;
+        margin-bottom: 20px;
+      }
+
+      .report-text {
+        text-align: center;
+        font-size: 16px;
+        color: #555;
+        margin: 30px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        padding: 8px;
+        text-align: left;
+      }
+
+      th {
+        background-color: #4caf50; /* Verde */
+        color: white;
+        font-weight: 600;
+      }
+
+      tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+
+      .footer {
+        font-size: 12px;
+        color: #888;
+        padding: 10px;
+        text-align: center;
+      }
+
+      .footer span {
+        font-weight: bold;
+      }
+
+      .footer .year {
+        color: #4caf50;
+      }
+
+      .type-span {
+        color: #4caf50;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Reporte de Movimientos Financieros</h1>
+
+      <div class="report-text">
+        <p>
+          Este reporte ha sido generado para ofrecer un análisis detallado de
+          los movimientos financieros correspondientes al año
+          <strong><span th:text="${year}"></span></strong>, abarcando el período
+          desde el mes de
+          <strong><span th:text="${startMonth}"></span></strong> hasta el mes de
+          <strong><span th:text="${endMonth}"></span></strong>.
+        </p>
+      </div>
+
+      <div class="report-header">
+        <div>
+          <p><span>Año:</span> <span th:text="${year}"></span></p>
+          <p><span>Mes Inicio:</span> <span th:text="${startMonth}"></span></p>
+          <p><span>Mes Fin:</span> <span th:text="${endMonth}"></span></p>
+        </div>
+        <div>
+          <p>
+            <span>Tipo de Reporte:</span>
+            <span
+              class="type-span"
+              th:text="${#strings.equals(type, 'income') ? 'Ingresos' : (type == 'savings' ? 'Ahorros' : (type == 'expense' ? 'Egresos' : 'Todos'))}"
+            ></span>
+          </p>
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Tipo</th>
+            <th>Descripción</th>
+            <th>Monto</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="movement : ${movements}">
+            <td th:text="${movement.date}"></td>
+            <td
+              th:text="${#strings.equals(movement.movementType, 'income') ? 'Ingresos' : (movement.movementType == 'savings' ? 'Ahorros' : (movement.movementType == 'expense' ? 'Egresos' : ''))}"
+            ></td>
+            <td th:text="${movement.description}"></td>
+            <td th:text="'$ ' + ${movement.amount}"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="footer">
+      <span>Reporte generado por MyFinance App.</span>
+      <span
+        class="year"
+        th:text="${#dates.format(#dates.createNow(), 'yyyy')}"
+      ></span>
+    </div>
+  </body>
+</html>

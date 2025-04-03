@@ -9,7 +9,6 @@ import com.myfinance.backend.planning.services.GoalsService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RequestMapping("/api/goals")
 @RequiredArgsConstructor
 public class GoalsController {
-    @Autowired
+
     private final GoalsService goalsService;
 
     @GetMapping("/viewAllGoals")
