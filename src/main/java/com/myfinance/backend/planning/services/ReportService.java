@@ -3,10 +3,7 @@ package com.myfinance.backend.planning.services;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.util.Base64;
 import java.util.List;
 
 import org.xhtmlrenderer.pdf.ITextRenderer;
